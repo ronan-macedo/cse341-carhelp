@@ -5,7 +5,7 @@
       "version": "1.0.0",
       "description": "Car Help Endpoints"
   },
-  "host": "localhost:5500",
+  "host": "cse341-carhelp.onrender.com",
   "basePath": "/",
   "schemes": [
       "https"
