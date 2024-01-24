@@ -1,0 +1,93 @@
+@host_uri = http://localhost:5500
+
+###
+
+GET {{host_uri}}/customers/
+
+###
+
+POST {{host_uri}}/customers/
+Content-Type: application/json
+
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@email.com",
+    "age": 25,
+    "address": {
+        "addressFirstLine": "Main street 01",
+        "addressSecondLine": "Apartment 01",
+        "city": "Centercity",
+        "region": "Regioncounty"
+    }
+}
+
+###
+
+GET {{host_uri}}/customers/65b06028c8ece9a6ed08e492
+
+###
+
+PUT {{host_uri}}/customers/65b06028c8ece9a6ed08e492
+Content-Type: application/json
+
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@email.com",
+    "age": 25,
+    "address": {
+        "addressFirstLine": "Main street 01",
+        "addressSecondLine": "Apartment 01",
+        "city": "Centercity",
+        "region": "Regioncounty"
+    }
+}
+
+###
+
+DELETE  {{host_uri}}/customers/65b06028c8ece9a6ed08e492
+
+###
+
+GET {{host_uri}}/autorescues/
+
+###
+
+POST {{host_uri}}/autorescues/
+Content-Type: application/json
+
+{
+  "vehicleWeight": 1000,
+  "vehicleDepth": 5,
+  "vehicleWidth": 2,
+  "vehicleHeight": 3,
+  "vehicleModel": "Chevy Camaro",
+  "vehicleYear": 1976,
+  "distance": 12
+}
+
+###
+
+GET {{host_uri}}/autorescues/65b06028c8ece9a6ed08e492
+
+###
+
+PUT {{host_uri}}/autorescues/65b06028c8ece9a6ed08e492
+Content-Type: application/json
+
+{
+  "vehicleWeight": 1000,
+  "vehicleDepth": 5,
+  "vehicleWidth": 2,
+  "vehicleHeight": 3,
+  "vehicleModel": "Chevy Camaro",
+  "vehicleYear": 1976,
+  "distance": 12
+}
+
+###
+
+DELETE  {{host_uri}}/autorescues/65b06028c8ece9a6ed08e492
+
+###
