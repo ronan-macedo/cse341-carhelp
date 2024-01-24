@@ -64,10 +64,10 @@ customersController.updateCustomer = async (req, res) => {
             email: req.body.email,
             age: req.body.age,
             address: {
-                addressFirstLine: req.body.addressFirstLine,
-                addressSecondLine: req.body.addressSecondLine,
-                city: req.body.city,
-                region: req.body.region,
+                addressFirstLine: req.body.address.addressFirstLine,
+                addressSecondLine: req.body.address.addressSecondLine,
+                city: req.body.address.city,
+                region: req.body.address.region,
             },
         };
 
