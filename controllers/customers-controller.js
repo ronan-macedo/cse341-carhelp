@@ -17,7 +17,7 @@ customersController.getCustomer = async (req, res) => {
         const customer = await customersModel.getCustomer(id);
 
         if (!customer) {
-            res.status(404).json({ message: "Customer not found!" });
+            res.status(404).json({ error: "Customer not found!" });
             return;
         }
 
@@ -49,7 +49,7 @@ customersController.createCustomer = async (req, res) => {
             return;
         }
 
-        res.status(400).json({ message: "Error while creating new customer!" });
+        res.status(400).json({ error: "Error while creating new customer!" });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -78,7 +78,7 @@ customersController.updateCustomer = async (req, res) => {
             return;
         }
 
-        res.status(400).json({ message: "Error while updating a customer!" });
+        res.status(400).json({ error: "Error while updating a customer!" });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -94,7 +94,7 @@ customersController.deleteCustomer = async (req, res) => {
             return;
         }
 
-        res.status(400).json({ message: "Error while deleting a customer!" });
+        res.status(400).json({ error: "Error while deleting a customer!" });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
