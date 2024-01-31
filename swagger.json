@@ -1,853 +1,1162 @@
 {
-  "swagger": "2.0",
-  "info": {
-      "title": "Car Help API",
-      "version": "1.0.0",
-      "description": "Car Help Endpoints"
-  },
-  "host": "cse341-carhelp.onrender.com",
-  "basePath": "/",
-  "schemes": [
-      "https"
-  ],
-  "consumes": [
-      "application/json"
-  ],
-  "produces": [
-      "application/json"
-  ],
-  "paths": {
-      "/customers/": {
-          "get": {
-              "tags": [
-                  "customers"
-              ],
-              "responses": {
-                  "default": {
-                      "description": ""
-                  },
-                  "200": {
-                      "description": "Success",
-                      "schema": {
-                          "type": "array",
-                          "items": {
-                              "$ref": "#/definitions/customerResponse"
-                          }
-                      },
-                      "examples": {
-                          "application/json": [
-                              {
-                                  "_id": "65a8747d7aaceb61d2c91eab",
-                                  "firstName": "John",
-                                  "lastName": "Doe",
-                                  "email": "john.doe@email.com",
-                                  "age": 25,
-                                  "address": {
-                                      "addressFirstLine": "Main street 01",
-                                      "addressSecondLine": "Apartment 01",
-                                      "city": "Centercity",
-                                      "region": "Regioncounty"
-                                  }
-                              },
-                              {
-                                  "_id": "28a8747d7aaceb61d2c91ced",
-                                  "firstName": "John",
-                                  "lastName": "Smith",
-                                  "email": "john.smith@email.com",
-                                  "age": 25,
-                                  "address": {
-                                      "addressFirstLine": "Main street 02",
-                                      "addressSecondLine": "Apartment 01",
-                                      "city": "Centercity",
-                                      "region": "Regioncounty"
-                                  }
-                              }
-                          ]
-                      }
-                  },
-                  "500": {
-                      "description": "Internal Server Error",
-                      "schema": {
-                          "$ref": "#/definitions/error"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "error": "some error"
-                          }
-                      }
-                  }
-              },
-              "summary": "Get all customers available.",
-              "description": ""
-          },
-          "post": {
-              "tags": [
-                  "customers"
-              ],
-              "parameters": [
-                  {
-                      "name": "body",
-                      "schema": {
-                          "$ref": "#/definitions/customer"
-                      },
-                      "in": "body",
-                      "required": true
-                  }
-              ],
-              "responses": {
-                  "400": {
-                      "description": "Bad Request",
-                      "schema": {
-                          "$ref": "#/definitions/errors"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "errors": [
-                                  {
-                                      "error": "some error"
-                                  },
-                                  {
-                                      "error": "another error"
-                                  }
-                              ]
-                          }
-                      }
-                  },
-                  "201": {
-                      "description": "Created"
-                  },
-                  "500": {
-                      "description": "Internal Server Error",
-                      "schema": {
-                          "$ref": "#/definitions/error"
-                      }
-                  }
-              },
-              "summary": "Add a new customer.",
-              "description": ""
-          }
-      },
-      "/customers/{id}": {
-          "get": {
-              "tags": [
-                  "customers"
-              ],
-              "parameters": [
-                  {
-                      "name": "id",
-                      "in": "path",
-                      "required": true,
-                      "type": "string"
-                  }
-              ],
-              "responses": {
-                  "400": {
-                      "description": "Bad Request",
-                      "schema": {
-                          "$ref": "#/definitions/errors"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "errors": [
-                                  {
-                                      "error": "some error"
-                                  },
-                                  {
-                                      "error": "another error"
-                                  }
-                              ]
-                          }
-                      }
-                  },
-                  "404": {
-                      "description": "Not Found",
-                      "schema": {
-                          "$ref": "#/definitions/error"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "error": "customer not found."
-                          }
-                      }
-                  },
-                  "200": {
-                      "description": "Success",
-                      "schema": {
-                          "$ref": "#/definitions/customerResponse"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "_id": "65a8747d7aaceb61d2c91eab",
-                              "firstName": "John",
-                              "lastName": "Doe",
-                              "email": "john.doe@email.com",
-                              "age": 25,
-                              "address": {
-                                  "addressFirstLine": "Main street 01",
-                                  "addressSecondLine": "Apartment 01",
-                                  "city": "Centercity",
-                                  "region": "Regioncounty"
-                              }
-                          }
-                      }
-                  },
-                  "500": {
-                      "description": "Internal Server Error",
-                      "schema": {
-                          "$ref": "#/definitions/error"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "error": "some error"
-                          }
-                      }
-                  }
-              },
-              "summary": "Get a customer by its Id.",
-              "description": ""
-          },
-          "put": {
-              "tags": [
-                  "customers"
-              ],
-              "parameters": [
-                  {
-                      "name": "id",
-                      "in": "path",
-                      "required": true,
-                      "type": "string"
-                  },
-                  {
-                      "name": "body",
-                      "schema": {
-                          "$ref": "#/definitions/customer"
-                      },
-                      "in": "body",
-                      "required": true
-                  }
-              ],
-              "responses": {
-                  "400": {
-                      "description": "Bad Request",
-                      "schema": {
-                          "$ref": "#/definitions/errors"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "errors": [
-                                  {
-                                      "error": "some error"
-                                  },
-                                  {
-                                      "error": "other error"
-                                  }
-                              ]
-                          }
-                      }
-                  },
-                  "200": {
-                      "description": "Success"
-                  },
-                  "500": {
-                      "description": "Internal Server Error",
-                      "schema": {
-                          "$ref": "#/definitions/error"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "error": "some error"
-                          }
-                      }
-                  }
-              },
-              "summary": "Update a customer.",
-              "description": ""
-          },
-          "delete": {
-              "tags": [
-                  "customers"
-              ],
-              "parameters": [
-                  {
-                      "name": "id",
-                      "in": "path",
-                      "required": true,
-                      "type": "string"
-                  }
-              ],
-              "responses": {
-                  "400": {
-                      "description": "Bad Request",
-                      "schema": {
-                          "$ref": "#/definitions/errors"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "errors": [
-                                  {
-                                      "error": "some error"
-                                  },
-                                  {
-                                      "error": "other error"
-                                  }
-                              ]
-                          }
-                      }
-                  },
-                  "204": {
-                      "description": "No Content"
-                  },
-                  "500": {
-                      "description": "Internal Server Error",
-                      "schema": {
-                          "$ref": "#/definitions/error"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "error": "some error"
-                          }
-                      }
-                  }
-              },
-              "summary": "Delete a customer.",
-              "description": ""
-          }
-      },
-      "/autorescues/": {
-          "get": {
-              "tags": [
-                  "autorescues"
-              ],
-              "responses": {
-                  "default": {
-                      "description": ""
-                  },
-                  "200": {
-                      "description": "All auto rescues.",
-                      "schema": {
-                          "type": "array",
-                          "items": {
-                              "$ref": "#/definitions/autorescueResponse"
-                          }
-                      },
-                      "examples": {
-                          "application/json": [
-                              {
-                                  "_id": "65a8747d7aaceb61d2c91eab",
-                                  "vehicleWeight": 1000,
-                                  "vehicleDepth": 6,
-                                  "vehicleWidth": 2,
-                                  "vehicleHeight": 2,
-                                  "vehicleModel": "Ford Mustang",
-                                  "vehicleYear": 1970,
-                                  "distance": 75
-                              },
-                              {
-                                  "_id": "27a8747d7aaceb61d2c91ecd",
-                                  "vehicleWeight": 1000,
-                                  "vehicleDepth": 6,
-                                  "vehicleWidth": 2,
-                                  "vehicleHeight": 2,
-                                  "vehicleModel": "Chevy Camaro",
-                                  "vehicleYear": 1976,
-                                  "distance": 74
-                              }
-                          ]
-                      }
-                  },
-                  "500": {
-                      "description": "Internal Server Error",
-                      "schema": {
-                          "$ref": "#/definitions/error"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "error": "some error"
-                          }
-                      }
-                  }
-              },
-              "summary": "Get all auto rescue available.",
-              "description": ""
-          },
-          "post": {
-              "tags": [
-                  "autorescues"
-              ],
-              "parameters": [
-                  {
-                      "name": "body",
-                      "schema": {
-                          "$ref": "#/definitions/autorescue"
-                      },
-                      "in": "body",
-                      "required": true
-                  }
-              ],
-              "responses": {
-                  "201": {
-                      "description": "Created"
-                  },
-                  "400": {
-                      "description": "Bad Request",
-                      "schema": {
-                          "$ref": "#/definitions/errors"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "errors": [
-                                  {
-                                      "error": "some error"
-                                  },
-                                  {
-                                      "error": "other error"
-                                  }
-                              ]
-                          }
-                      }
-                  },
-                  "500": {
-                      "description": "Internal Server Error",
-                      "schema": {
-                          "$ref": "#/definitions/error"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "error": "some error"
-                          }
-                      }
-                  }
-              },
-              "summary": "Create a new auto rescue.",
-              "description": ""
-          }
-      },
-      "/autorescues/{id}": {
-          "get": {
-              "tags": [
-                  "autorescues"
-              ],
-              "parameters": [
-                  {
-                      "name": "id",
-                      "in": "path",
-                      "required": true,
-                      "type": "string"
-                  }
-              ],
-              "responses": {
-                  "400": {
-                      "description": "Bad Request",
-                      "schema": {
-                          "$ref": "#/definitions/errors"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "errors": [
-                                  {
-                                      "error": "some error"
-                                  },
-                                  {
-                                      "error": "other error"
-                                  }
-                              ]
-                          }
-                      }
-                  },
-                  "200": {
-                      "description": "Success",
-                      "schema": {
-                          "$ref": "#/definitions/autorescueResponse"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "_id": "65a8747d7aaceb61d2c91eab",
-                              "vehicleWeight": 1000,
-                              "vehicleDepth": 6,
-                              "vehicleWidth": 2,
-                              "vehicleHeight": 2,
-                              "vehicleModel": "Ford Mustang",
-                              "vehicleYear": 1970,
-                              "distance": 75
-                          }
-                      }
-                  },
-                  "500": {
-                      "description": "Internal Server Error",
-                      "schema": {
-                          "$ref": "#/definitions/error"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "error": "some error"
-                          }
-                      }
-                  }
-              },
-              "summary": "Get an auto rescue by its Id.",
-              "description": ""
-          },
-          "put": {
-              "tags": [
-                  "autorescues"
-              ],
-              "parameters": [
-                  {
-                      "name": "id",
-                      "in": "path",
-                      "required": true,
-                      "type": "string"
-                  },
-                  {
-                      "name": "body",
-                      "schema": {
-                          "$ref": "#/definitions/autorescue"
-                      },
-                      "in": "body",
-                      "required": true
-                  }
-              ],
-              "responses": {
-                  "400": {
-                      "description": "Bad Request",
-                      "schema": {
-                          "$ref": "#/definitions/errors"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "errors": [
-                                  {
-                                      "error": "some error"
-                                  },
-                                  {
-                                      "error": "other error"
-                                  }
-                              ]
-                          }
-                      }
-                  },
-                  "500": {
-                      "description": "Internal Server Error",
-                      "schema": {
-                          "$ref": "#/definitions/error"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "error": "some error"
-                          }
-                      }
-                  },
-                  "200": {
-                      "description": "Success"
-                  }
-              },
-              "summary": "Update an auto rescue.",
-              "description": ""
-          },
-          "delete": {
-              "tags": [
-                  "autorescues"
-              ],
-              "parameters": [
-                  {
-                      "name": "id",
-                      "in": "path",
-                      "required": true,
-                      "type": "string"
-                  }
-              ],
-              "responses": {
-                  "400": {
-                      "description": "Bad Request",
-                      "schema": {
-                          "$ref": "#/definitions/errors"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "errors": [
-                                  {
-                                      "error": "some error"
-                                  },
-                                  {
-                                      "error": "other error"
-                                  }
-                              ]
-                          }
-                      }
-                  },
-                  "204": {
-                      "description": "No Content"
-                  },
-                  "500": {
-                      "description": "Internal Server Error",
-                      "schema": {
-                          "$ref": "#/definitions/error"
-                      },
-                      "examples": {
-                          "application/json": {
-                              "error": "some error"
-                          }
-                      }
-                  }
-              },
-              "summary": "Delete an auto rescue.",
-              "description": ""
-          }
-      }
-  },
-  "definitions": {
-      "customer": {
-          "title": "Root Type for customer",
-          "description": "Customer.",
-          "required": [
-              "address",
-              "lastName",
-              "firstName",
-              "email",
-              "age"
-          ],
-          "type": "object",
-          "properties": {
-              "firstName": {
-                  "type": "string"
-              },
-              "lastName": {
-                  "type": "string"
-              },
-              "email": {
-                  "type": "string"
-              },
-              "age": {
-                  "type": "integer",
-                  "example": ""
-              },
-              "address": {
-                  "$ref": "#/definitions/address",
-                  "properties": {
-                      "addressFirstLine": {
-                          "type": "string"
-                      },
-                      "addressSecondLine": {
-                          "type": "string"
-                      },
-                      "city": {
-                          "type": "string"
-                      },
-                      "region": {
-                          "type": "string"
-                      }
-                  }
-              }
-          },
-          "example": {
-              "firstName": "John",
-              "lastName": "Doe",
-              "email": "john.doe@email.com",
-              "age": 25,
-              "address": {
-                  "addressFirstLine": "Main street 01",
-                  "addressSecondLine": "Apartment 01",
-                  "city": "Centercity",
-                  "region": "Regioncounty"
-              }
-          }
-      },
-      "address": {
-          "title": "Root Type for address",
-          "description": "Customer address.",
-          "required": [
-              "region",
-              "city",
-              "addressSecondLine",
-              "addressFirstLine"
-          ],
-          "type": "object",
-          "properties": {
-              "addressFirstLine": {
-                  "type": "string"
-              },
-              "addressSecondLine": {
-                  "type": "string"
-              },
-              "city": {
-                  "type": "string"
-              },
-              "region": {
-                  "type": "string"
-              }
-          },
-          "example": {
-              "addressFirstLine": "Main street 01",
-              "addressSecondLine": "Apartment 01",
-              "city": "Centercity",
-              "region": "Regioncounty"
-          }
-      },
-      "autorescue": {
-          "title": "Root Type for autorescue",
-          "description": "Auto rescue.",
-          "required": [
-              "vehicleDepth",
-              "distance",
-              "vehicleHeight",
-              "vehicleModel",
-              "vehicleWeight",
-              "vehicleWidth",
-              "vehicleYear"
-          ],
-          "type": "object",
-          "properties": {
-              "vehicleWeight": {
-                  "type": "integer"
-              },
-              "vehicleDepth": {
-                  "type": "integer"
-              },
-              "vehicleWidth": {
-                  "type": "integer"
-              },
-              "vehicleHeight": {
-                  "type": "integer"
-              },
-              "vehicleModel": {
-                  "type": "string"
-              },
-              "vehicleYear": {
-                  "type": "integer"
-              },
-              "distance": {
-                  "type": "integer"
-              }
-          },
-          "example": {
-              "vehicleWeight": 1000,
-              "vehicleDepth": 5,
-              "vehicleWidth": 2,
-              "vehicleHeight": 3,
-              "vehicleModel": "Chevy Camaro",
-              "vehicleYear": 1976,
-              "distance": 12
-          }
-      },
-      "error": {
-          "title": "Root Type for error",
-          "description": "Api error response.",
-          "type": "object",
-          "properties": {
-              "error": {
-                  "type": "string"
-              }
-          },
-          "example": {
-              "error": "some error"
-          }
-      },
-      "errors": {
-          "description": "A list of erros.",
-          "type": "object",
-          "properties": {
-              "errors": {
-                  "description": "",
-                  "type": "array",
-                  "items": {
-                      "$ref": "#/definitions/error"
-                  }
-              }
-          },
-          "example": {
-              "errors": [
-                  {
-                      "error": "some error"
-                  },
-                  {
-                      "error": "another error"
-                  }
-              ]
-          }
-      },
-      "autorescueResponse": {
-          "title": "Root Type for autorescueResponse",
-          "description": "Auto rescue response.",
-          "type": "object",
-          "properties": {
-              "vehicleWeight": {
-                  "type": "integer"
-              },
-              "vehicleDepth": {
-                  "type": "integer"
-              },
-              "vehicleWidth": {
-                  "type": "integer"
-              },
-              "vehicleHeight": {
-                  "type": "integer"
-              },
-              "vehicleModel": {
-                  "type": "string"
-              },
-              "vehicleYear": {
-                  "type": "integer"
-              },
-              "distance": {
-                  "type": "integer"
-              },
-              "_id": {
-                  "type": "string"
-              }
-          },
-          "example": {
-              "_id": "65a8747d7aaceb61d2c91eab",
-              "vehicleWeight": 1000,
-              "vehicleDepth": 5,
-              "vehicleWidth": 2,
-              "vehicleHeight": 3,
-              "vehicleModel": "Chevy Camaro",
-              "vehicleYear": 1976,
-              "distance": 12
-          }
-      },
-      "customerResponse": {
-          "description": "Customer response.",
-          "required": [
-          ],
-          "type": "object",
-          "properties": {
-              "firstName": {
-                  "type": "string"
-              },
-              "lastName": {
-                  "type": "string"
-              },
-              "email": {
-                  "type": "string"
-              },
-              "age": {
-                  "type": "integer",
-                  "example": ""
-              },
-              "address": {
-                  "$ref": "#/definitions/address",
-                  "properties": {
-                      "addressFirstLine": {
-                          "type": "string"
-                      },
-                      "addressSecondLine": {
-                          "type": "string"
-                      },
-                      "city": {
-                          "type": "string"
-                      },
-                      "region": {
-                          "type": "string"
-                      }
-                  }
-              },
-              "_id": {
-                  "description": "",
-                  "type": "integer"
-              }
-          },
-          "example": "{\n    \"_id\": \"65a8747d7aaceb61d2c91eab\"\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"john.doe@email.com\",\n    \"age\": 25,\n    \"address\": {\n        \"addressFirstLine\": \"Main street 01\",\n        \"addressSecondLine\": \"Apartment 01\",\n        \"city\": \"Centercity\",\n        \"region\": \"Regioncounty\"\n    }\n}"
-      }
-  }
+    "swagger": "2.0",
+    "info": {
+        "title": "Car Help API",
+        "version": "1.0.0",
+        "description": "Car Help Endpoints"
+    },
+    "host": "cse341-carhelp.onrender.com",
+    "basePath": "/",
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/register": {
+            "post": {
+                "tags": [
+                    "accounts"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "description": "Registration request.",
+                        "schema": {
+                            "$ref": "#/definitions/account"
+                        },
+                        "in": "body",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errors"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "errors": [
+                                    {
+                                        "error": "some error"
+                                    },
+                                    {
+                                        "error": "another error"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "some error"
+                            }
+                        }
+                    }
+                },
+                "summary": "Registration."
+            }
+        },
+        "/customers/{id}": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/customerResponse"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "_id": "65a8747d7aaceb61d2c91eab",
+                                "firstName": "John",
+                                "lastName": "Doe",
+                                "email": "john.doe@email.com",
+                                "age": 25,
+                                "address": {
+                                    "addressFirstLine": "Main street 01",
+                                    "addressSecondLine": "Apartment 01",
+                                    "city": "Centercity",
+                                    "region": "Regioncounty"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errors"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "errors": [
+                                    {
+                                        "error": "some error"
+                                    },
+                                    {
+                                        "error": "another error"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "Unauthorized!"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "customer not found."
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "some error"
+                            }
+                        }
+                    }
+                },
+                "summary": "Get a customer by its Id.",
+                "description": ""
+            },
+            "put": {
+                "tags": [
+                    "customers"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/customer"
+                        },
+                        "in": "body",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errors"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "errors": [
+                                    {
+                                        "error": "some error"
+                                    },
+                                    {
+                                        "error": "other error"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "Unauthorized!"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "some error"
+                            }
+                        }
+                    }
+                },
+                "summary": "Update a customer.",
+                "description": ""
+            },
+            "delete": {
+                "tags": [
+                    "customers"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errors"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "errors": [
+                                    {
+                                        "error": "some error"
+                                    },
+                                    {
+                                        "error": "other error"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "Unauthorized!"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "some error"
+                            }
+                        }
+                    }
+                },
+                "summary": "Delete a customer.",
+                "description": ""
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "accounts"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "description": "Login request.",
+                        "schema": {
+                            "$ref": "#/definitions/loginRequest"
+                        },
+                        "in": "body",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/message"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "message": "Logged in!"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "some error"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "some error"
+                            }
+                        }
+                    }
+                },
+                "summary": "Login."
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "accounts"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/message"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "message": "Logout!"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "Unauthorized!"
+                            }
+                        }
+                    }
+                },
+                "summary": "Logout."
+            }
+        },
+        "/customers/": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "responses": {
+                    "default": {
+                        "description": ""
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/customerResponse"
+                            }
+                        },
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "_id": "65a8747d7aaceb61d2c91eab",
+                                    "firstName": "John",
+                                    "lastName": "Doe",
+                                    "email": "john.doe@email.com",
+                                    "age": 25,
+                                    "address": {
+                                        "addressFirstLine": "Main street 01",
+                                        "addressSecondLine": "Apartment 01",
+                                        "city": "Centercity",
+                                        "region": "Regioncounty"
+                                    }
+                                },
+                                {
+                                    "_id": "28a8747d7aaceb61d2c91ced",
+                                    "firstName": "John",
+                                    "lastName": "Smith",
+                                    "email": "john.smith@email.com",
+                                    "age": 25,
+                                    "address": {
+                                        "addressFirstLine": "Main street 02",
+                                        "addressSecondLine": "Apartment 01",
+                                        "city": "Centercity",
+                                        "region": "Regioncounty"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "Unauthorized!"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "some error"
+                            }
+                        }
+                    }
+                },
+                "summary": "Get all customers available.",
+                "description": ""
+            },
+            "post": {
+                "tags": [
+                    "customers"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/customer"
+                        },
+                        "in": "body",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errors"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "errors": [
+                                    {
+                                        "error": "some error"
+                                    },
+                                    {
+                                        "error": "another error"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "Unauthorized!"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                },
+                "summary": "Add a new customer.",
+                "description": ""
+            }
+        },
+        "/autorescues/{id}": {
+            "get": {
+                "tags": [
+                    "autorescues"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/autorescueResponse"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "_id": "65a8747d7aaceb61d2c91eab",
+                                "vehicleWeight": 1000,
+                                "vehicleDepth": 6,
+                                "vehicleWidth": 2,
+                                "vehicleHeight": 2,
+                                "vehicleModel": "Ford Mustang",
+                                "vehicleYear": 1970,
+                                "distance": 75
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errors"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "errors": [
+                                    {
+                                        "error": "some error"
+                                    },
+                                    {
+                                        "error": "other error"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "Unauthorized!"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "some error"
+                            }
+                        }
+                    }
+                },
+                "summary": "Get an auto rescue by its Id.",
+                "description": ""
+            },
+            "put": {
+                "tags": [
+                    "autorescues"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/autorescue"
+                        },
+                        "in": "body",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errors"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "errors": [
+                                    {
+                                        "error": "some error"
+                                    },
+                                    {
+                                        "error": "other error"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "Unauthorized!"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "some error"
+                            }
+                        }
+                    }
+                },
+                "summary": "Update an auto rescue.",
+                "description": ""
+            },
+            "delete": {
+                "tags": [
+                    "autorescues"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errors"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "errors": [
+                                    {
+                                        "error": "some error"
+                                    },
+                                    {
+                                        "error": "other error"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "Unauthorized!"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "some error"
+                            }
+                        }
+                    }
+                },
+                "summary": "Delete an auto rescue.",
+                "description": ""
+            }
+        },
+        "/autorescues/": {
+            "get": {
+                "tags": [
+                    "autorescues"
+                ],
+                "responses": {
+                    "default": {
+                        "description": ""
+                    },
+                    "200": {
+                        "description": "All auto rescues.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/autorescueResponse"
+                            }
+                        },
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "_id": "65a8747d7aaceb61d2c91eab",
+                                    "vehicleWeight": 1000,
+                                    "vehicleDepth": 6,
+                                    "vehicleWidth": 2,
+                                    "vehicleHeight": 2,
+                                    "vehicleModel": "Ford Mustang",
+                                    "vehicleYear": 1970,
+                                    "distance": 75
+                                },
+                                {
+                                    "_id": "27a8747d7aaceb61d2c91ecd",
+                                    "vehicleWeight": 1000,
+                                    "vehicleDepth": 6,
+                                    "vehicleWidth": 2,
+                                    "vehicleHeight": 2,
+                                    "vehicleModel": "Chevy Camaro",
+                                    "vehicleYear": 1976,
+                                    "distance": 74
+                                }
+                            ]
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "Unauthorized!"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "some error"
+                            }
+                        }
+                    }
+                },
+                "summary": "Get all auto rescue available.",
+                "description": ""
+            },
+            "post": {
+                "tags": [
+                    "autorescues"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/autorescue"
+                        },
+                        "in": "body",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errors"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "errors": [
+                                    {
+                                        "error": "some error"
+                                    },
+                                    {
+                                        "error": "other error"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "Unauthorized!"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "error": "some error"
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new auto rescue.",
+                "description": ""
+            }
+        }
+    },
+    "definitions": {
+        "customer": {
+            "title": "Root Type for customer",
+            "description": "Customer.",
+            "required": [
+                "address",
+                "lastName",
+                "firstName",
+                "email",
+                "age"
+            ],
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "age": {
+                    "type": "integer",
+                    "example": ""
+                },
+                "address": {
+                    "$ref": "#/definitions/address",
+                    "properties": {
+                        "addressFirstLine": {
+                            "type": "string"
+                        },
+                        "addressSecondLine": {
+                            "type": "string"
+                        },
+                        "city": {
+                            "type": "string"
+                        },
+                        "region": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "example": {
+                "firstName": "John",
+                "lastName": "Doe",
+                "email": "john.doe@email.com",
+                "age": 25,
+                "address": {
+                    "addressFirstLine": "Main street 01",
+                    "addressSecondLine": "Apartment 01",
+                    "city": "Centercity",
+                    "region": "Regioncounty"
+                }
+            }
+        },
+        "address": {
+            "title": "Root Type for address",
+            "description": "Customer address.",
+            "required": [
+                "region",
+                "city",
+                "addressSecondLine",
+                "addressFirstLine"
+            ],
+            "type": "object",
+            "properties": {
+                "addressFirstLine": {
+                    "type": "string"
+                },
+                "addressSecondLine": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "addressFirstLine": "Main street 01",
+                "addressSecondLine": "Apartment 01",
+                "city": "Centercity",
+                "region": "Regioncounty"
+            }
+        },
+        "autorescue": {
+            "title": "Root Type for autorescue",
+            "description": "Auto rescue.",
+            "required": [
+                "vehicleDepth",
+                "distance",
+                "vehicleHeight",
+                "vehicleModel",
+                "vehicleWeight",
+                "vehicleWidth",
+                "vehicleYear"
+            ],
+            "type": "object",
+            "properties": {
+                "vehicleWeight": {
+                    "type": "integer"
+                },
+                "vehicleDepth": {
+                    "type": "integer"
+                },
+                "vehicleWidth": {
+                    "type": "integer"
+                },
+                "vehicleHeight": {
+                    "type": "integer"
+                },
+                "vehicleModel": {
+                    "type": "string"
+                },
+                "vehicleYear": {
+                    "type": "integer"
+                },
+                "distance": {
+                    "type": "integer"
+                }
+            },
+            "example": {
+                "vehicleWeight": 1000,
+                "vehicleDepth": 5,
+                "vehicleWidth": 2,
+                "vehicleHeight": 3,
+                "vehicleModel": "Chevy Camaro",
+                "vehicleYear": 1976,
+                "distance": 12
+            }
+        },
+        "error": {
+            "title": "Root Type for error",
+            "description": "Api error response.",
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "error": "some error"
+            }
+        },
+        "errors": {
+            "description": "A list of erros.",
+            "type": "object",
+            "properties": {
+                "errors": {
+                    "description": "",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/error"
+                    }
+                }
+            },
+            "example": {
+                "errors": [
+                    {
+                        "error": "some error"
+                    },
+                    {
+                        "error": "another error"
+                    }
+                ]
+            }
+        },
+        "autorescueResponse": {
+            "title": "Root Type for autorescueResponse",
+            "description": "Auto rescue response.",
+            "type": "object",
+            "properties": {
+                "vehicleWeight": {
+                    "type": "integer"
+                },
+                "vehicleDepth": {
+                    "type": "integer"
+                },
+                "vehicleWidth": {
+                    "type": "integer"
+                },
+                "vehicleHeight": {
+                    "type": "integer"
+                },
+                "vehicleModel": {
+                    "type": "string"
+                },
+                "vehicleYear": {
+                    "type": "integer"
+                },
+                "distance": {
+                    "type": "integer"
+                },
+                "_id": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "_id": "65a8747d7aaceb61d2c91eab",
+                "vehicleWeight": 1000,
+                "vehicleDepth": 5,
+                "vehicleWidth": 2,
+                "vehicleHeight": 3,
+                "vehicleModel": "Chevy Camaro",
+                "vehicleYear": 1976,
+                "distance": 12
+            }
+        },
+        "customerResponse": {
+            "description": "Customer response.",
+            "required": [],
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "age": {
+                    "type": "integer",
+                    "example": ""
+                },
+                "address": {
+                    "$ref": "#/definitions/address",
+                    "properties": {
+                        "addressFirstLine": {
+                            "type": "string"
+                        },
+                        "addressSecondLine": {
+                            "type": "string"
+                        },
+                        "city": {
+                            "type": "string"
+                        },
+                        "region": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "_id": {
+                    "description": "",
+                    "type": "integer"
+                }
+            },
+            "example": "{\n    \"_id\": \"65a8747d7aaceb61d2c91eab\"\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"john.doe@email.com\",\n    \"age\": 25,\n    \"address\": {\n        \"addressFirstLine\": \"Main street 01\",\n        \"addressSecondLine\": \"Apartment 01\",\n        \"city\": \"Centercity\",\n        \"region\": \"Regioncounty\"\n    }\n}"
+        },
+        "account": {
+            "title": "Root Type for account",
+            "description": "User account.",
+            "required": [
+                "email",
+                "firstName",
+                "lastName",
+                "password"
+            ],
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "firstName": "John",
+                "lastName": "Doe",
+                "email": "john.doe@email.com",
+                "password": "!Login.123456"
+            }
+        },
+        "loginRequest": {
+            "title": "Root Type for loginRequest",
+            "description": "Login request.",
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "email": "john.doe@email.com",
+                "password": "!Login.123456"
+            }
+        },
+        "message": {
+            "title": "Root Type for message",
+            "description": "",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "message": "Success!"
+            }
+        }
+    }
 }

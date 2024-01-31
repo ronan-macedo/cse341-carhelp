@@ -17,7 +17,7 @@ autorescuesController.getAutorescue = async (req, res) => {
         const autorescue = await autorescuesModel.getAutorescue(id);
 
         if (!autorescue) {
-            res.status(404).json({ message: "Auto rescue not found!" });
+            res.status(404).json({ error: "Auto rescue not found!" });
             return;
         }
 
@@ -45,7 +45,7 @@ autorescuesController.createAutorescue = async (req, res) => {
             return;
         }
 
-        res.status(400).json({ message: "Error while creating new auto rescue!" });
+        res.status(400).json({ error: "Error while creating new auto rescue!" });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -70,7 +70,7 @@ autorescuesController.updateAutorescue = async (req, res) => {
             return;
         }
 
-        res.status(400).json({ message: "Error while updating a auto rescue!" });
+        res.status(400).json({ error: "Error while updating a auto rescue!" });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
